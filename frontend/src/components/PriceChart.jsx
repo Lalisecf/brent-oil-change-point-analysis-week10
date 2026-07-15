@@ -12,7 +12,7 @@ import {
     ReferenceLine
 } from "recharts";
 
-function PriceChart() {
+function PriceChart({ startDate, endDate }) {
 
     const [prices, setPrices] = useState([]);
     const [events, setEvents] = useState([]);
@@ -40,6 +40,19 @@ function PriceChart() {
         loadData();
 
     }, []);
+    const filteredPrices = prices.filter((item) => {
+
+    if (!startDate && !endDate) return true;
+
+    const date = item.Date.substring(0, 10);
+
+    if (startDate && date < startDate) return false;
+
+    if (endDate && date > endDate) return false;
+
+    return true;
+
+    });
 
     return (
 
@@ -56,7 +69,7 @@ function PriceChart() {
 
             <ResponsiveContainer width="100%" height={500}>
 
-                <LineChart data={prices}>
+                <LineChart data={filteredPrices}>
 
                     <CartesianGrid strokeDasharray="3 3" />
 
