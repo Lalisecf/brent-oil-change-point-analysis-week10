@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPrices } from "../services/api";
+import { getPrices, getEvents } from "../services/api";
 
 import {
     LineChart,
@@ -9,46 +9,60 @@ import {
     CartesianGrid,
     Tooltip,
     ResponsiveContainer,
+    ReferenceLine
 } from "recharts";
 
 function PriceChart() {
 
     const [prices, setPrices] = useState([]);
+    const [events, setEvents] = useState([]);
 
     useEffect(() => {
 
-        const fetchPrices = async () => {
+        const loadData = async () => {
+
             try {
-                const data = await getPrices();
-                setPrices(data);
+
+                const priceData = await getPrices();
+                const eventData = await getEvents();
+
+                setPrices(priceData);
+                setEvents(eventData);
+
             } catch (error) {
-                console.error("Error loading Brent prices:", error);
+
+                console.error(error);
+
             }
+
         };
 
-        fetchPrices();
+        loadData();
 
     }, []);
 
     return (
+
         <div
             style={{
                 border: "1px solid #ddd",
-                borderRadius: "8px",
                 padding: "20px",
-                marginTop: "20px",
+                borderRadius: "8px",
+                marginTop: "20px"
             }}
         >
+
             <h2>Historical Brent Oil Prices</h2>
 
             <ResponsiveContainer width="100%" height={500}>
+
                 <LineChart data={prices}>
 
                     <CartesianGrid strokeDasharray="3 3" />
 
                     <XAxis
                         dataKey="Date"
-                        tick={{ fontSize: 12 }}
+                        interval={500}
                     />
 
                     <YAxis />
@@ -62,11 +76,33 @@ function PriceChart() {
                         dot={false}
                     />
 
+                    {
+                        events.map((event, index) => (
+
+                            <ReferenceLine
+                                key={index}
+                                x={event.Date}
+                                stroke="red"
+                                strokeDasharray="5 5"
+                                label={{
+                                    value: event.Event,
+                                    angle: -90,
+                                    position: "insideTop",
+                                    fontSize: 10
+                                }}
+                            />
+
+                        ))
+                    }
+
                 </LineChart>
+
             </ResponsiveContainer>
 
         </div>
+
     );
+
 }
 
 export default PriceChart;
