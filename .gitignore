@@ -16,3 +16,5 @@ frontend/build/
 
 # Jupyter
 .ipynb_checkpoints/
+
+backend/data/
