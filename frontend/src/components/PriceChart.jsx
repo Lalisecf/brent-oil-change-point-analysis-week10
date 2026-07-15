@@ -12,7 +12,7 @@ import {
     ReferenceLine
 } from "recharts";
 
-function PriceChart({ startDate, endDate }) {
+function PriceChart({ startDate, endDate, selectedEvent }) {
 
     const [prices, setPrices] = useState([]);
     const [events, setEvents] = useState([]);
@@ -40,9 +40,7 @@ function PriceChart({ startDate, endDate }) {
         loadData();
 
     }, []);
-    const filteredPrices = prices.filter((item) => {
-
-    if (!startDate && !endDate) return true;
+   let filteredPrices = prices.filter((item) => {
 
     const date = item.Date.substring(0, 10);
 
@@ -53,6 +51,31 @@ function PriceChart({ startDate, endDate }) {
     return true;
 
     });
+    const selected = events.find(
+    event => event.Event === selectedEvent
+    );
+
+    if (selected) {
+
+        const center = new Date(selected.Date);
+
+        const start = new Date(center);
+        start.setFullYear(center.getFullYear() - 1);
+
+        const end = new Date(center);
+        end.setFullYear(center.getFullYear() + 1);
+
+        filteredPrices = filteredPrices.filter(item => {
+
+            const d = new Date(item.Date);
+
+            return d >= start && d <= end;
+
+        });
+
+    }   
+
+    
 
     return (
 
@@ -89,13 +112,22 @@ function PriceChart({ startDate, endDate }) {
                         dot={false}
                     />
 
-                    {
+                   {
                         events.map((event, index) => (
 
                             <ReferenceLine
                                 key={index}
                                 x={event.Date}
-                                stroke="red"
+                                stroke={
+                                    event.Event === selectedEvent
+                                        ? "#ff9800"
+                                        : "#d32f2f"
+                                }
+                                strokeWidth={
+                                    event.Event === selectedEvent
+                                        ? 3
+                                        : 1
+                                }
                                 strokeDasharray="5 5"
                                 label={{
                                     value: event.Event,
