@@ -55,42 +55,28 @@ function SummaryCards() {
 
     }, []);
 
-    const cardStyle = {
-        flex: 1,
-        border: "1px solid #ddd",
-        borderRadius: "8px",
-        padding: "20px",
-        textAlign: "center",
-        boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
-    };
 
     return (
 
-        <div
-            style={{
-                display: "flex",
-                gap: "20px",
-                marginTop: "20px",
-                flexWrap: "wrap"
-            }}
-        >
+        <div className="summary-container">
+            
 
-            <div style={cardStyle}>
+            <div className="summary-card">
                 <h3>Average Price</h3>
                 <h2>${summary.average}</h2>
             </div>
 
-            <div style={cardStyle}>
+           <div className="summary-card">
                 <h3>Maximum Price</h3>
                 <h2>${summary.maximum}</h2>
             </div>
 
-            <div style={cardStyle}>
+           <div className="summary-card">
                 <h3>Detected Change Point</h3>
                 <h2>{summary.changePoint}</h2>
             </div>
 
-            <div style={cardStyle}>
+            <div className="summary-card">
                 <h3>Volatility</h3>
                 <h2>{summary.volatility}</h2>
             </div>

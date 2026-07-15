@@ -66,12 +66,9 @@ function EventTable() {
 
             <h2>Geopolitical Events Summary</h2>
 
-            <table
-                style={{
-                    width: "100%",
-                    borderCollapse: "collapse"
-                }}
-            >
+            <div className="table-container">
+
+            <table>
 
                 <thead>
 
@@ -117,9 +114,11 @@ function EventTable() {
 
                 </tbody>
 
-            </table>
+           </table>
 
         </div>
+
+    </div>
 
     );
 

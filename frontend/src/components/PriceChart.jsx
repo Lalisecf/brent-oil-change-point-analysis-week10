@@ -79,18 +79,11 @@ function PriceChart({ startDate, endDate, selectedEvent }) {
 
     return (
 
-        <div
-            style={{
-                border: "1px solid #ddd",
-                padding: "20px",
-                borderRadius: "8px",
-                marginTop: "20px"
-            }}
-        >
+        <div className="chart-container">
 
             <h2>Historical Brent Oil Prices</h2>
 
-            <ResponsiveContainer width="100%" height={500}>
+            <ResponsiveContainer width="100%" height={450}>
 
                 <LineChart data={filteredPrices}>
 

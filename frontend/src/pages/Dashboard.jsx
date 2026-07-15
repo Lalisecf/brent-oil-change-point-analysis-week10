@@ -6,6 +6,7 @@ import Filters from "../components/Filters";
 import PriceChart from "../components/PriceChart";
 import EventTable from "../components/EventTable";
 import EventSelector from "../components/EventSelector";
+import "../styles/dashboard.css";
 
 function Dashboard() {
 
@@ -14,7 +15,7 @@ function Dashboard() {
     const [selectedEvent, setSelectedEvent] = useState("");
 
     return (
-        <div style={{ padding: "20px" }}>
+        <div className="dashboard-container">
 
             <Header />
 

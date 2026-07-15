@@ -5,15 +5,7 @@ function Filters({
     setEndDate,
 }) {
     return (
-        <div
-            style={{
-                display: "flex",
-                gap: "20px",
-                marginTop: "20px",
-                marginBottom: "20px",
-                alignItems: "center",
-            }}
-        >
+        <div className="filter-container">
             <div>
                 <label><strong>Start Date</strong></label>
                 <br />
