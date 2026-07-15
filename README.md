@@ -380,6 +380,336 @@ Future improvements include:
 
 ---
 
+# Task 3 – Interactive Dashboard
+
+Task 3 extends the analytical work completed in Tasks 1 and 2 by developing a full-stack interactive dashboard for exploring Brent oil prices, Bayesian Change Point Analysis results, and major geopolitical events.
+
+The dashboard enables users to visualize historical oil prices, inspect detected structural breaks, explore important geopolitical events, and interactively filter the displayed data.
+
+---
+
+# Dashboard Architecture
+
+The dashboard follows a client-server architecture.
+
+```
+React Frontend
+        │
+        │ HTTP Requests (Axios)
+        ▼
+Flask REST API
+        │
+        ▼
+Brent Oil Dataset
+Geopolitical Events Dataset
+Bayesian Change Point Results
+```
+
+The React frontend communicates with the Flask backend through REST API endpoints. The backend serves processed Brent oil prices, geopolitical event data, and Bayesian Change Point results in JSON format.
+
+---
+
+# Updated Project Structure
+
+```
+brent-oil-change-point-analysis/
+
+│
+├── backend/
+│   ├── app.py
+│   ├── routes.py
+│   ├── utils.py
+│   ├── requirements.txt
+│   └── data/
+│       ├── BrentOilPrices.csv
+│       ├── geopolitical_events.csv
+│       └── change_point_results.json
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │
+│   ├── components/
+│   │   ├── Header.jsx
+│   │   ├── SummaryCards.jsx
+│   │   ├── Filters.jsx
+│   │   ├── EventSelector.jsx
+│   │   ├── PriceChart.jsx
+│   │   └── EventTable.jsx
+│   │
+│   ├── pages/
+│   │   └── Dashboard.jsx
+│   │
+│   ├── services/
+│   │   └── api.js
+│   │
+│   ├── styles/
+│   │   └── dashboard.css
+│   │
+│   ├── App.js
+│   └── package.json
+│
+├── notebooks/
+├── reports/
+├── data/
+├── README.md
+└── requirements.txt
+```
+
+---
+
+# Flask Backend
+
+The Flask backend provides REST APIs that expose processed analytical results generated during Tasks 1 and 2.
+
+## Technologies
+
+- Flask
+- Flask-CORS
+- Pandas
+- JSON
+
+The backend loads:
+
+- Brent oil price dataset
+- Geopolitical event dataset
+- Bayesian Change Point results
+
+These datasets are served to the React frontend through REST endpoints.
+
+---
+
+# React Frontend
+
+The frontend is developed using React and provides an interactive user interface for exploring the Brent oil market.
+
+## Technologies
+
+- React
+- Axios
+- Recharts
+
+The dashboard consists of reusable React components including:
+
+- Header
+- Summary Cards
+- Historical Price Chart
+- Event Selector
+- Date Filters
+- Geopolitical Events Table
+
+---
+
+# API Endpoints
+
+The backend exposes the following REST APIs.
+
+| Endpoint | Method | Description |
+|-----------|---------|-------------|
+| `/` | GET | API welcome message |
+| `/prices` | GET | Returns historical Brent oil prices |
+| `/events` | GET | Returns geopolitical events dataset |
+| `/change-point` | GET | Returns Bayesian Change Point analysis results |
+
+Example:
+
+```
+GET /change-point
+```
+
+Response
+
+```json
+{
+  "date": "2020-03-11",
+  "before_mean": 0.0018,
+  "after_mean": -0.0046
+}
+```
+
+---
+
+# Dashboard Features
+
+The interactive dashboard provides the following capabilities.
+
+## Historical Price Visualization
+
+Displays the complete Brent oil price time series using an interactive Recharts line chart.
+
+---
+
+## Geopolitical Event Highlighting
+
+Major geopolitical events are displayed as vertical reference lines on the price chart.
+
+Example events include:
+
+- Gulf War
+- Iraq War
+- OPEC Production Decisions
+- COVID-19 Pandemic
+- Russia–Ukraine Conflict
+
+---
+
+## Summary Metrics
+
+The dashboard computes and displays:
+
+- Average Brent Oil Price
+- Maximum Brent Oil Price
+- Detected Bayesian Change Point
+- Price Volatility
+
+---
+
+## Date Range Filtering
+
+Users can filter historical Brent oil prices using custom start and end dates.
+
+---
+
+## Interactive Event Selection
+
+Users can select a geopolitical event from a dropdown menu.
+
+Selecting an event automatically:
+
+- Zooms the chart around the selected event
+- Highlights the selected event
+- Allows easier inspection of market behavior before and after the event
+
+---
+
+## Event Summary Table
+
+The dashboard displays:
+
+- Event Date
+- Event Name
+- Brent Oil Price
+- Estimated impact relative to the detected change point
+
+---
+
+## Responsive Design
+
+The dashboard is fully responsive and adapts to:
+
+- Desktop
+- Tablet
+- Mobile devices
+
+---
+
+# Installation
+
+## Clone Repository
+
+```bash
+git clone <repository-url>
+
+cd brent-oil-change-point-analysis
+```
+
+---
+
+## Backend
+
+```bash
+cd backend
+
+pip install -r requirements.txt
+
+python app.py
+```
+
+The backend will run on
+
+```
+http://127.0.0.1:5000
+```
+
+---
+
+## Frontend
+
+```bash
+cd frontend
+
+npm install
+
+npm start
+```
+
+The React application will run on
+
+```
+http://localhost:3000
+```
+
+---
+
+# Dashboard Screenshots
+
+The following screenshots demonstrate the completed dashboard.
+
+- Dashboard Home
+- Historical Brent Oil Price Chart
+- Summary Metrics
+- Event Highlighting
+- Date Filtering
+- Geopolitical Events Table
+
+Example project structure:
+
+```
+reports/
+
+└── screenshots/
+    ├── dashboard_home.png
+    ├── summary_cards.png
+    ├── historical_chart.png
+    ├── event_highlighting.png
+    ├── date_filter.png
+    └── events_table.png
+```
+
+---
+
+# Results
+
+The completed dashboard successfully integrates statistical analysis with interactive visualization.
+
+Key achievements include:
+
+- Historical Brent oil price visualization
+- Bayesian Change Point integration
+- RESTful Flask API
+- Interactive React dashboard
+- Geopolitical event visualization
+- Date range filtering
+- Event highlighting
+- Responsive user interface
+
+The dashboard enables users to explore how geopolitical events correspond with structural changes in Brent oil prices while making the outputs of Bayesian analysis easier to interpret.
+
+---
+
+# Future Improvements
+
+Potential enhancements include:
+
+- Detect multiple change points instead of a single change point.
+- Add forecasting models for future Brent oil prices.
+- Integrate live oil market data through external APIs.
+- Include additional macroeconomic indicators such as inflation, exchange rates, and GDP.
+- Deploy the Flask backend and React frontend to cloud platforms for public access.
+- Add interactive analytics using Plotly or Dash.
+
+---
+
 # How to Run
 
 Clone the repository:
