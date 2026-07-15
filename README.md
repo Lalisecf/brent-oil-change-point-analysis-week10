@@ -14,7 +14,12 @@ Brent crude oil prices are influenced by numerous geopolitical, economic, and po
 
 This project aims to analyze the historical Brent oil price time series and identify structural changes using statistical analysis and Bayesian Change Point Detection. The analysis will help investors, policymakers, and energy companies understand how major global events influence oil price movements.
 
-This repository contains the **Interim Submission (Task 1)** for the Week 10 Challenge.
+This repository contains the **Final Submission** for the Week 10 Challenge, covering:
+
+- **Task 1:** Exploratory Data Analysis (EDA) and Research
+- **Task 2:** Bayesian Change Point Modeling and Insight Generation
+
+The project investigates historical Brent oil price movements, detects structural changes using Bayesian inference, and associates detected change points with major geopolitical and economic events.
 
 ---
 
@@ -63,15 +68,15 @@ brent-oil-change-point-analysis/
 │       └── oil_market_events.csv
 │
 ├── notebooks/
-│   └── task1_eda.ipynb
+│   ├── task1_eda.ipynb
+│   └── task2_change_point_model.ipynb
 │
 ├── reports/
-│   └── interim_report.md
+│   ├── interim_report.md
+│   └── final_report.md
 │
 ├── src/
-│
 ├── scripts/
-│
 ├── tests/
 │
 ├── requirements.txt
@@ -96,17 +101,24 @@ brent-oil-change-point-analysis/
 
 ---
 
-# Task 1 Objectives
+# Project Objectives
 
-The interim submission focuses on:
+## Task 1 – Exploratory Data Analysis
 
-- Defining the complete data analysis workflow.
-- Understanding the Brent oil dataset.
-- Researching important geopolitical and economic events.
-- Exploring time series properties.
-- Investigating stationarity.
-- Examining volatility patterns.
-- Preparing for Bayesian Change Point Analysis.
+- Understand the Brent oil price dataset.
+- Explore long-term price trends.
+- Investigate stationarity and volatility.
+- Compile a structured dataset of major geopolitical events.
+- Prepare the dataset for Bayesian modeling.
+
+## Task 2 – Bayesian Change Point Modeling
+
+- Build a Bayesian Change Point Model using PyMC.
+- Detect statistically significant structural breaks.
+- Estimate posterior distributions of model parameters.
+- Evaluate model convergence.
+- Associate detected change points with geopolitical events.
+- Quantify changes before and after the detected structural break.
 
 ---
 
@@ -253,6 +265,79 @@ These characteristics violate the assumptions of models that assume constant sta
 
 Bayesian Change Point Analysis is therefore appropriate because it can identify structural breaks and estimate when significant changes in market behavior occurred.
 
+# Bayesian Change Point Modeling
+
+Task 2 applies Bayesian inference to identify structural changes in the Brent oil price time series.
+
+The implemented model consists of:
+
+- A discrete change point (`tau`) modeled using a Discrete Uniform prior.
+- Separate mean parameters before and after the change point (`mu1` and `mu2`).
+- A shared standard deviation parameter (`sigma`).
+- A Normal likelihood connecting the observed daily log returns to the model.
+
+Posterior distributions are estimated using Markov Chain Monte Carlo (MCMC) sampling implemented in PyMC.
+
+---
+# Bayesian Model Results
+
+The Bayesian Change Point Model successfully estimated the posterior distributions of the model parameters and identified a probable structural break within the Brent oil price series.
+
+Model outputs include:
+
+- Posterior distributions of model parameters
+- Trace plots for convergence diagnostics
+- Estimated change point location
+- Posterior summaries
+- Association between the detected change point and major geopolitical events
+
+Although uncertainty remains regarding the exact timing of the structural break, the model successfully demonstrates the application of Bayesian Change Point Detection for identifying changes in oil market dynamics.
+
+---
+# Convergence Diagnostics
+
+Model convergence was evaluated using:
+
+- Posterior trace plots
+- Posterior summaries
+- Effective Sample Size (ESS)
+- R-hat statistics
+
+The continuous parameters (`mu1` and `sigma`) exhibited acceptable convergence, while the discrete change point parameter (`tau`) showed greater uncertainty due to the complexity of sampling discrete variables and the limited number of MCMC iterations used during model fitting.
+
+Increasing the number of posterior samples and tuning iterations would improve the precision of the estimated change point.
+
+---
+# Change Point Interpretation
+
+The Bayesian model detected a statistically significant structural break within the Brent oil price time series.
+
+The estimated change point was compared with a manually compiled dataset of major geopolitical and economic events.
+
+The closest event identified was:
+
+- **OPEC Production Cut Agreement**
+- **Date:** 30 November 2016
+- **Category:** OPEC
+
+While the detected change point does not exactly coincide with the event date, the temporal proximity suggests that OPEC production policies may have contributed to changes in Brent oil price behavior.
+
+It is important to note that Bayesian Change Point Analysis identifies statistical associations rather than proving causal relationships.
+---
+# Key Results
+
+The project produced the following outputs:
+
+- Historical Brent oil price analysis
+- Daily log return analysis
+- Stationarity testing using the Augmented Dickey-Fuller (ADF) test
+- Rolling volatility analysis
+- Bayesian Change Point Model
+- Posterior trace plots
+- Posterior parameter distributions
+- Estimated structural break
+- Comparison with major geopolitical events
+- Quantified before-and-after parameter estimates
 ---
 
 # Assumptions
@@ -281,21 +366,17 @@ Several limitations should be considered:
 
 # Future Work
 
-Task 2 will include:
+Future improvements include:
 
-- Bayesian Change Point Modeling using PyMC
-- Posterior distribution analysis
-- Identification of structural break dates
-- Quantification of price changes before and after each change point
-- Association of change points with geopolitical events
+- Detecting multiple change points rather than a single structural break.
+- Incorporating macroeconomic indicators such as GDP, inflation, exchange rates, and global oil demand.
+- Comparing Bayesian Change Point Analysis with alternative models including:
+  - Markov-Switching Models
+  - Vector Autoregression (VAR)
+  - Hidden Markov Models
+- Developing a Flask REST API for serving analysis results.
+- Building an interactive React dashboard for exploring historical prices, detected change points, and geopolitical events.
 
-Task 3 will include:
-
-- Flask REST API
-- Interactive React dashboard
-- Event highlighting
-- Change point visualization
-- Historical price exploration
 
 ---
 
@@ -308,7 +389,7 @@ git clone <repository-url>
 cd brent-oil-change-point-analysis
 ```
 
-Install dependencies:
+Install the required dependencies:
 
 ```bash
 pip install -r requirements.txt
@@ -320,11 +401,12 @@ Launch Jupyter Notebook:
 jupyter notebook
 ```
 
-Open:
+Run the notebooks in the following order:
 
-```
-notebooks/task1_eda.ipynb
-```
+1. `notebooks/task1_eda.ipynb`
+2. `notebooks/task2_change_point_model.ipynb`
+
+The notebooks reproduce the complete exploratory analysis, Bayesian change point modeling, posterior diagnostics, and interpretation of results.
 
 ---
 
