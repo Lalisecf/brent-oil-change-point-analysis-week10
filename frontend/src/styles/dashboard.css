@@ -1,0 +1,103 @@
+/* General Layout */
+
+.dashboard-container {
+    max-width: 1400px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Summary Cards */
+
+.summary-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.summary-card {
+    flex: 1 1 220px;
+    min-width: 220px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    background: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,.1);
+}
+
+/* Filters */
+
+.filter-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 20px 0;
+}
+
+/* Chart */
+
+.chart-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Table */
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+}
+
+/* Tablet */
+
+@media (max-width:992px){
+
+    .summary-card{
+        flex:1 1 45%;
+    }
+
+}
+
+/* Mobile */
+
+@media (max-width:768px){
+
+    .summary-container{
+        flex-direction:column;
+    }
+
+    .filter-container{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .summary-card{
+        width:100%;
+    }
+
+    h1{
+        font-size:28px;
+    }
+
+    h2{
+        font-size:22px;
+    }
+
+    table{
+        font-size:14px;
+    }
+
+}
